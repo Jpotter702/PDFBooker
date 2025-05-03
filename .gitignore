@@ -1,0 +1,36 @@
+# Node.js
+node_modules/
+web/.next/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+venv/
+app/venv/
+worker/venv/
+
+# Environment files
+.env
+.env.*
+web/.env.local
+web/.env.local.example
+
+# Docker
+*.log
+docker-compose.override.yml
+
+# Database and output
+postgres_data/
+redis_data/
+pdf_output/
+app/output/
+worker/output/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Traefik
+acme.json
