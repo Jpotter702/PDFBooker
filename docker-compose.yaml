@@ -1,4 +1,43 @@
+version: "3.8"
 services:
+  app:
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    environment:
+      - PORT=8000
+      - OUTPUT_DIR=/app/output
+      - DATABASE_URL=${DATABASE_URL}
+      - REDIS_URL=${REDIS_URL}
+    volumes:
+      - pdf_output:/app/output
+    expose:
+      - "8000"
+
+  worker:
+    build:
+      context: ./worker
+      dockerfile: Dockerfile
+    environment:
+      - OUTPUT_DIR=/app/output
+      - DATABASE_URL=${DATABASE_URL}
+      - REDIS_URL=${REDIS_URL}
+    volumes:
+      - pdf_output:/app/output
+
+  web:
+    build:
+      context: ./web
+      dockerfile: Dockerfile
+    environment:
+      - PORT=3000
+      - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
+    expose:
+      - "3000"
+
+volumes:
+  pdf_output:
+
   # Database for storing user data and job information
   db:
     image: postgres:14-alpine
@@ -32,6 +71,18 @@ services:
   # FastAPI application server
   app:
     build:
+      context: ./app
+      dockerfile: Dockerfile
+    environment:
+      - PORT=8000
+      - OUTPUT_DIR=/app/output
+      - DATABASE_URL=${DATABASE_URL}
+      - REDIS_URL=${REDIS_URL}
+    volumes:
+      - pdf_output:/app/output
+    expose:
+      - "8000"
+    build:
       context: .
       dockerfile: app/Dockerfile
     volumes:
@@ -60,6 +111,15 @@ services:
   # Celery worker for processing PDF jobs
   worker:
     build:
+      context: ./worker
+      dockerfile: Dockerfile
+    environment:
+      - OUTPUT_DIR=/app/output
+      - DATABASE_URL=${DATABASE_URL}
+      - REDIS_URL=${REDIS_URL}
+    volumes:
+      - pdf_output:/app/output
+    build:
       context: .
       dockerfile: worker/Dockerfile
     volumes:
@@ -79,6 +139,14 @@ services:
 
   # Next.js web frontend
   web:
+    build:
+      context: ./web
+      dockerfile: Dockerfile
+    environment:
+      - PORT=3000
+      - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
+    expose:
+      - "3000"
     build: 
       context: .
       dockerfile: web/Dockerfile

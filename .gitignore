@@ -1,9 +1,17 @@
 # Node.js
 node_modules/
 web/.next/
+web/.pnpm/
+web/.next/
 
 # Python
 __pycache__/
+*.pyc
+*.pyo
+*.pyd
+venv/
+app/venv/
+worker/venv/
 *.pyc
 *.pyo
 *.pyd

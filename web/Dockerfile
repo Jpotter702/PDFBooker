@@ -15,7 +15,8 @@ COPY web/ .
 ENV NEXT_TELEMETRY_DISABLED 1
 
 # Setup for development mode
-ENV NODE_ENV development
+ENV NODE_ENV=production
+ENV PORT=${PORT:-3000}
 
 # Create required directories
 RUN mkdir -p .next
@@ -27,4 +28,4 @@ EXPOSE 3000
 ENV NEXT_PUBLIC_API_URL http://localhost:8000
 
 # Run in development mode
-CMD ["pnpm", "run", "dev"]
+CMD ["pnpm", "start", "--", "-p", "$PORT"]
