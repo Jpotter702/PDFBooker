@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-rgb: 255, 255, 255;
+  --primary-color: #0ea5e9;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: rgb(var(--background-rgb));
+}
+
+/* Custom utility classes */
+.cursor-pointer {
+  cursor: pointer !important;
+}
+
+.bg-primary-600 {
+  background-color: var(--primary-color) !important;
+}
+
+.hover\:bg-primary-700:hover {
+  background-color: #0284c7 !important;
+}
+
+/* Make sure file dropzone is properly active */
+[role="presentation"] {
+  cursor: pointer !important;
+}
